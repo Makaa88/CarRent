@@ -7,15 +7,10 @@
              xmlns:mainview="clr-namespace:CarRent"
              xmlns:iconPack="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1024">
-    <!--<UserControl.Resources>
-        <DataTemplate x:Name="MainViewTemplate" DataType="{x:Type mainview:MainWindow}">
-            <mainview:MainWindow DataContext="{Binding}"/>
-        </DataTemplate>
-    </UserControl.Resources>-->
-    <Grid Background="White">
+             d:DesignHeight="600" d:DesignWidth="820">
+   
+    <Grid Background="LightGray">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -34,25 +29,11 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <DockPanel Grid.Row="0" Grid.RowSpan="10" Grid.Column="0" Background="Gray" Margin="0">
-            <Button x:Name="MainPageButton" Background="Gray" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Top" Margin="0" Height="40" Width="205">
-                <StackPanel Height="40" Width="157" Orientation="Horizontal">
-                    <iconPack:PackIconMaterial Kind="Home" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <TextBlock Text="Strona Głowna" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                </StackPanel>
-            </Button>
+        
+        <DockPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+            <Label x:Name="HelloLabel" Content="testasktjjsangjnadfjnhjkadfbhjk" Width="300" Height="50" FontFamily="Malgun Gothic" FontSize="25" FontWeight="Heavy" Foreground="DodgerBlue" Background="LightGray"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </DockPanel>
 
-        <DockPanel Grid.Row="9" Grid.Column="0" Background="Gray">
-            <Button x:Name="LogOutButton" Background="Gray" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="40" Width="205" HorizontalAlignment="Center">
-                <StackPanel Height="40" Width="157" Orientation="Horizontal">
-                    <iconPack:PackIconMaterial Kind="Logout" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <TextBlock Text="Wyloguj" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                </StackPanel>
-            </Button>
-        </DockPanel>
-
-
+        
     </Grid>
 </UserControl>

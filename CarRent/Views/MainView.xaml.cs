@@ -22,23 +22,18 @@ namespace CarRent.Views
     /// </summary>
     public partial class MainView : UserControl
     {
-        private MainViewModel model;
-        public MainView(ref DatabaseConnection db)
-            :this()
-        {
-            model = new MainViewModel(ref db);
-            
-        }
-
+ 
         public MainView()
         {
             InitializeComponent();
         }
 
-        private void LogOut(object sender, RoutedEventArgs e)
+        public MainView(MainViewModel model)
+            :this()
         {
-            model.CloseConnection();
-            System.Windows.Application.Current.Shutdown();
+            HelloLabel.Content = " Witaj " + model.GetName() + "!";
         }
+
+
     }
 }

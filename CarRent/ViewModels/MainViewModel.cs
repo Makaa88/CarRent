@@ -9,15 +9,23 @@ namespace CarRent.ViewModels
 {
     public class MainViewModel
     {
+        private User user;
         private DatabaseConnection db;
-        public MainViewModel(ref DatabaseConnection db)
+        public MainViewModel(ref DatabaseConnection db, int id)
         {
+            string name = db.GetUsername(id);
+            user = new User(id, name);
             this.db = db;
         }
 
-        internal void CloseConnection()
+        public void CloseConnection()
         {
             db.Close();
+        }
+
+        public string GetName()
+        {
+            return user.Name;
         }
     }
 }

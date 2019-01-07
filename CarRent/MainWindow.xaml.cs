@@ -26,6 +26,7 @@ namespace CarRent
     {
 
         private DatabaseConnection db = new DatabaseConnection();
+        private int userID;
         public MainWindow()
         {
             InitializeComponent();
@@ -35,17 +36,26 @@ namespace CarRent
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //DatabaseConnection conn = new DatabaseConnection(LoginBox.Text, PasswordBox.Password,ref TestLabel);
-            //  DataContext = new MainView();
-            if(!db.LogIn(LoginBox.Text, PasswordBox.Password))
-            {
-                ErrorLabel.Content = "Błędne dane";
-                ErrorLabel.Foreground = new SolidColorBrush(Colors.Red);
+            //DataContext = new MainView(ref db);
+            userID = db.LogIn(LoginBox.Text, PasswordBox.Password);
+             if (userID == 0)
+             {
+                 ErrorLabel.Content = "Błędne dane";
+                 ErrorLabel.Foreground = new SolidColorBrush(Colors.Red);
 
+             }
+             else
+             {
+                // DataContext = new MainView(ref db, userID);
+                
+                var window = new UserWindow(ref db,userID,this);
+                window.Show();
+                this.Hide();
+                LoginBox.Clear();
+                PasswordBox.Clear();
+                ErrorLabel.Content = "";
             }
-            else
-            {
-                DataContext = new MainView(ref db);
-            }
+
         }
 
         void WindowClosing(object sender, CancelEventArgs e)

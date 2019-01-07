@@ -15,51 +15,14 @@ namespace CarRent.Models
         private SshClient client;
         private ForwardedPortLocal port;
         private NpgsqlConnection conn;
+        private static int i = 8001;
         public DatabaseConnection(/*string username, string password,ref Label testLabel*/)
         {
-            /*SshClient*/ client = new SshClient("pascal.fis.agh.edu.pl", "6libirt", "tingliessick");
-            //client.Connect();
-            /*ForwardedPortLocal*/ port = new ForwardedPortLocal("localhost", 8001, "localhost", 5432);
-
-           // port.Start();
-
+            client = new SshClient("pascal.fis.agh.edu.pl", "6libirt", "tingliessick");
+            port = new ForwardedPortLocal("localhost", 8001, "localhost", 5432);
             string connectionString = String.Format("Server={0};Port={1};User Id={2};Password={3};Database={4}; CommandTimeout=1;",
                   "localhost", 8001, "u6libirt", "6libirt", "u6libirt");
-
-            /*NpgsqlConnection*/ conn = new NpgsqlConnection(connectionString);
-          /*  Console.WriteLine(conn.CommandTimeout);
-            Console.WriteLine(conn.ConnectionTimeout);*/
-            //conn.Open();
-            
-
-           /* try
-            {
-              
-                string prepareStatement = "SELECT id_osoba FROM test.osoba WHERE imie=\'" + username + "\' AND drugie_imie =\'" + password + "\'";
-                var cmd = new NpgsqlCommand(prepareStatement, conn);
-                var reader = cmd.ExecuteReader();
-
-                if (reader.HasRows)
-                    testLabel.Content = "Zalogowano";
-                else
-                    testLabel.Content = "nie udalo sie";
-
-
-            }
-            catch(Exception e)
-            {
-                //testLabel.Content = "Wyjatek";
-                Console.WriteLine(e);
-            }
-            finally
-            {
-                conn.Close();
-                port.Stop();
-                client.RemoveForwardedPort(port);
-                port.Dispose();
-                client.Disconnect();
-            }*/
-
+            conn = new NpgsqlConnection(connectionString);
         }
 
         public void OpenDataBase()
@@ -68,7 +31,6 @@ namespace CarRent.Models
             {
                 client.Connect();
                 client.AddForwardedPort(port);
-                //if(!port.IsStarted)
                 port.Start();
                 conn.Open();
             }
@@ -84,26 +46,45 @@ namespace CarRent.Models
             {
                 conn.Close();
                 port.Stop();
-               // port.Dispose();
                 client.RemoveForwardedPort(port);
                 client.Disconnect();
             }
         }
 
 
-        public bool LogIn(string username, string password)
+        public int LogIn(string username, string password)
         {
-            string prepareStatement = "SELECT id_osoba FROM test.osoba WHERE imie=\'" + username + "\' AND drugie_imie =\'" + password + "\'";
+            string prepareStatement = "SELECT id_klient FROM projekt.klient WHERE email=\'" + username + "\' AND haslo =\'" + password + "\'";
             using (var cmd = new NpgsqlCommand(prepareStatement, conn))
             {
                 using (var reader = cmd.ExecuteReader())
                 {
                     if (reader.HasRows)
-                        return true;
+                    {
+                        // return reader.GetInt32(0);
+                        while (reader.Read())
+                            return reader.GetInt32(0);
+                        return 0;
+                    }
                     else
-                        return false;
+                        return 0;
                 }
             }
+        }
+
+        public string GetUsername(int id)
+        {
+            string prepareStatement = "Select imie FROM projekt.klient WHERE id_klient=" + id;
+            using (NpgsqlCommand cmd = new NpgsqlCommand(prepareStatement, conn))
+            {
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while(reader.Read())
+                        return reader.GetString(0);
+                }
+            }
+
+            return "ERROR";
         }
 
     }

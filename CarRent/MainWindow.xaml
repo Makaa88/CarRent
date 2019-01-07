@@ -10,11 +10,6 @@
         xmlns:views="clr-namespace:CarRent.Views"
         Title="MainWindow" Height="600" Width="1024" Background="MidnightBlue">
 
-    <Window.Resources>
-        <DataTemplate x:Name="MainViewTemplate" DataType="{x:Type views:MainView}">
-            <views:MainView DataContext="{Binding}"/>
-        </DataTemplate>
-    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -31,7 +26,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock Height="35" TextWrapping="Wrap" Text="Login" VerticalAlignment="Center" Margin="0,42,0,36.6" Foreground="White" HorizontalAlignment="Center" FontSize="24" FontFamily="Malgun Gothic"/>
+            <TextBlock Height="35" TextWrapping="Wrap" Text="E-mail" VerticalAlignment="Center" Margin="0,42,0,36.6" Foreground="White" HorizontalAlignment="Center" FontSize="24" FontFamily="Malgun Gothic"/>
         </DockPanel>
 
         <DockPanel Grid.Row="2" Grid.Column="1">
@@ -54,6 +49,5 @@
             <Label x:Name="ErrorLabel" Height="35" Width="150" FontFamily="Malgun Gothic" FontSize="18" Background="MidnightBlue"/>
         </DockPanel>
 
-        <ContentControl Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="4" Content="{Binding}"/>
     </Grid>
 </Window>
