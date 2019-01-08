@@ -54,5 +54,15 @@ namespace CarRent.Views
         {
             this.Close();
         }
+
+        private void TravelButtonClick(object sender, RoutedEventArgs e)
+        {
+            DataContext = new TravelView();
+        }
+
+        private void ChangePasswordButtonClick(object sender, RoutedEventArgs e)
+        {
+            DataContext = new PasswordChangeView(db,model.GetID());
+        }
     }
 }

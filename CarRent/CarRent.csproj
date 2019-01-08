@@ -81,9 +81,19 @@
     </ApplicationDefinition>
     <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PasswordChangeModel.cs" />
     <Compile Include="ViewModels\Travel.cs" />
+    <Compile Include="Views\BusView.xaml.cs">
+      <DependentUpon>BusView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PasswordChangeView.xaml.cs">
+      <DependentUpon>PasswordChangeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TravelView.xaml.cs">
+      <DependentUpon>TravelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
@@ -100,9 +110,21 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\BusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PasswordChangeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TravelView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UserWindow.xaml">
       <SubType>Designer</SubType>

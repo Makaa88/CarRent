@@ -12,6 +12,12 @@
         <DataTemplate x:Name="MainView" DataType="{x:Type local:MainView}">
             <local:MainView DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate x:Name="TravelView" DataType="{x:Type local:TravelView}">
+            <local:TravelView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="PasswordChangeView" DataType="{x:Type local:PasswordChangeView}">
+            <local:PasswordChangeView DataContext="{Binding}"/>
+        </DataTemplate>
     </Window.Resources>
     <Grid Background="LightGray">
         <Grid.ColumnDefinitions>
@@ -45,7 +51,7 @@
         </DockPanel>
 
         <DockPanel Grid.Row="1" Grid.Column="0" Background="MediumBlue" Margin="0">
-            <Button x:Name="TravelButton" Background="MediumBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Top" Margin="0" Height="58" Width="205">
+            <Button x:Name="TravelButton" Background="MediumBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Top" Margin="0" Height="58" Width="205" Click="TravelButtonClick">
                 <StackPanel Height="40" Width="157" Orientation="Horizontal">
                     <iconPack:PackIconMaterial Kind="Car" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     <TextBlock Text="Podróż" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -54,10 +60,19 @@
         </DockPanel>
 
         <DockPanel Grid.Row="9" Grid.Column="0" >
-            <Button x:Name="LogOutButton" Background="MediumBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="40" Width="205" HorizontalAlignment="Center" Click="LogOutClick">
+            <Button x:Name="LogOutButton" Background="MediumBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="58" Width="205" HorizontalAlignment="Center" Click="LogOutClick">
                 <StackPanel Height="40" Width="157" Orientation="Horizontal">
                     <iconPack:PackIconMaterial Kind="Logout" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     <TextBlock Text="Wyloguj" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                </StackPanel>
+            </Button>
+        </DockPanel>
+
+        <DockPanel Grid.Row="8" Grid.Column="0" >
+            <Button x:Name="ChangePassword" Background="MediumBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="58" Width="205" HorizontalAlignment="Center" Click="ChangePasswordButtonClick">
+                <StackPanel Height="40" Width="157" Orientation="Horizontal">
+                    <iconPack:PackIconMaterial Kind="KeyChange" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <TextBlock Text="Zmień hasło" VerticalAlignment="Center" Margin="15,0,0,0"/>
                 </StackPanel>
             </Button>
         </DockPanel>

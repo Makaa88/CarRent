@@ -27,5 +27,10 @@ namespace CarRent.ViewModels
         {
             return user.Name;
         }
+
+        public int GetID()
+        {
+            return user.ID;
+        }
     }
 }

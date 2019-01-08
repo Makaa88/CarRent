@@ -87,5 +87,29 @@ namespace CarRent.Models
             return "ERROR";
         }
 
+
+        public string ChangePassword(int id, string oldPass, string fNewPass, string sNewPass)
+        {
+            string prepareStatement = "Select * FROM zmien_haslo(" + id + ",\'"+ oldPass +"\',\'"+fNewPass+"\',\'"+sNewPass+"\')";
+            using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.zmien_haslo", conn))
+            {
+                
+              
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("id", NpgsqlTypes.NpgsqlDbType.Integer, id);
+                cmd.Parameters.AddWithValue("stare", NpgsqlTypes.NpgsqlDbType.Text, oldPass);
+                cmd.Parameters.AddWithValue("p_nowe", NpgsqlTypes.NpgsqlDbType.Text, fNewPass);
+                cmd.Parameters.AddWithValue("d_nowe", NpgsqlTypes.NpgsqlDbType.Text, sNewPass);
+                 using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                 {
+                     while (reader.Read())
+                         return reader.GetString(0);
+                 }
+              /*  string value = (string)cmd.ExecuteScalar();
+                return value;*/
+            }
+            return "ERROR";
+        }
+
     }
 }

@@ -8,8 +8,8 @@ namespace CarRent.Models
 {
     public class User
     {
-        int ID { get; set; }
-        public string Name { get; set; }
+        public int ID { get; private set; }
+        public string Name { get; private set; }
 
         public User(int id, string name)
         {
