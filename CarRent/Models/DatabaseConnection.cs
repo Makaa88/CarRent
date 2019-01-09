@@ -7,6 +7,7 @@ using System.IO;
 using Renci.SshNet;
 using Npgsql;
 using System.Windows.Controls;
+using System.IO;
 
 namespace CarRent.Models
 {
@@ -24,10 +25,17 @@ namespace CarRent.Models
         //TODO hide connection parameters to different file
         public DatabaseConnection()
         {
-            client = new SshClient("pascal.fis.agh.edu.pl", "6libirt", "tingliessick");
+            var lines = File.ReadAllLines("connectiondata.dat");
+            string user = lines[0];
+            string password = lines[1];
+            string dbpassword = lines[2];
+            string dbname = lines[3];
+            string dbuser = lines[4];
+
+            client = new SshClient("pascal.fis.agh.edu.pl", user, password);
             port = new ForwardedPortLocal("localhost", 8001, "localhost", 5432);
             string connectionString = String.Format("Server={0};Port={1};User Id={2};Password={3};Database={4}; CommandTimeout=1;",
-                  "localhost", 8001, "u6libirt", "6libirt", "u6libirt");
+                  "localhost", 8001, dbuser, dbpassword, dbname);
             conn = new NpgsqlConnection(connectionString);
         }
 

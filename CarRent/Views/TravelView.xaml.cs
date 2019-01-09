@@ -24,7 +24,6 @@ namespace CarRent.Views
     public partial class TravelView : UserControl
     {
         private TravelViewModel travelModel;
-        private List<Car> cars;
         public TravelView()
         {
             InitializeComponent();
@@ -38,15 +37,34 @@ namespace CarRent.Views
          
         private void CoachButtonPressed(object sender, RoutedEventArgs e)
         {
-            //cars = travelModel.GetCoaches();
-            CarList.ItemsSource = travelModel.GetCoaches();// cars;
+            CarList.ItemsSource = travelModel.GetCoaches();
         }
 
         private void BusButtonClick(object sender, RoutedEventArgs e)
         {
-            //cars = travelModel.GetBuses();
-            CarList.ItemsSource = travelModel.GetBuses();//cars;
+            CarList.ItemsSource = travelModel.GetBuses();
         }
 
+        private void AddTravelButtonClick(object sender, RoutedEventArgs e)
+        {
+            if(CheckIfAllFieldsFilled())
+            {
+                ErrorLabel.Content = "Tak";
+            }
+            else
+            {
+                ErrorLabel.Content = "Nie";
+            }
+        }
+
+        //TODO figure out how to move this to travelModel
+        private bool CheckIfAllFieldsFilled()
+        {
+            if (String.IsNullOrEmpty(StartCountryText.Text) || String.IsNullOrEmpty(StartTownText.Text) || String.IsNullOrEmpty(StartStreetText.Text) || String.IsNullOrEmpty(StartDate.Text) || String.IsNullOrEmpty(StartHour.Text))
+                return false;
+            if (String.IsNullOrEmpty(EndCountryText.Text) || String.IsNullOrEmpty(EndTownText.Text) || String.IsNullOrEmpty(EndStreetText.Text) || String.IsNullOrEmpty(EndDate.Text) || String.IsNullOrEmpty(EndHour.Text))
+                return false;
+            return true;
+        }
     }
 }

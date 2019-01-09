@@ -74,19 +74,22 @@
         <Label Grid.Row="6" Grid.Column="0" FontFamily="Malgun Gothic" FontSize="20" Content="Początek" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Grid.Row="7" Grid.Column="0" FontFamily="Malgun Gothic" FontSize="20" Content="Cel" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <TextBox Grid.Row="6" Grid.Column="1" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30" Text="Polska" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="7" Grid.Column="1" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30" Text="Polska" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox x:Name="StartCountryText" Grid.Row="6" Grid.Column="1" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30" Text="Polska" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox x:Name="EndCountryText" Grid.Row="7" Grid.Column="1" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30" Text="Polska" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <TextBox Grid.Row="6" Grid.Column="2" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="7" Grid.Column="2" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox x:Name="StartTownText" Grid.Row="6" Grid.Column="2" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox x:Name="EndTownText" Grid.Row="7" Grid.Column="2" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <TextBox Grid.Row="6" Grid.Column="3" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="7" Grid.Column="3" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <DatePicker Grid.Column="4" HorizontalAlignment="Center"  Grid.Row="6" VerticalAlignment="Top"/>
-        <DatePicker Grid.Column="4" HorizontalAlignment="Center"  Grid.Row="7" VerticalAlignment="Top"/>
+        <TextBox x:Name="StartStreetText" Grid.Row="6" Grid.Column="3" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox x:Name="EndStreetText" Grid.Row="7" Grid.Column="3" FontFamily="Malgun Gothic" FontSize="14" Width="150" Height="30"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <DatePicker x:Name="StartDate" Grid.Column="4" HorizontalAlignment="Center"  Grid.Row="6" VerticalAlignment="Top"/>
+        <DatePicker x:Name="EndDate" Grid.Column="4" HorizontalAlignment="Center"  Grid.Row="7" VerticalAlignment="Top"/>
 
-        <wpfTool:TimePicker Grid.Column="4" Grid.Row="6" Height="25" Width="100" VerticalAlignment="Bottom" DefaultValue="00:00" FontFamily="Malgun Gothic"/>
-        <wpfTool:TimePicker Grid.Column="4" Grid.Row="7" Height="25" Width="100" VerticalAlignment="Bottom" DefaultValue="23:00" FontFamily="Malgun Gothic"/>
+        <wpfTool:TimePicker x:Name="StartHour" Grid.Column="4" Grid.Row="6" Height="25" Width="100" VerticalAlignment="Bottom" DefaultValue="00:00" FontFamily="Malgun Gothic"/>
+        <wpfTool:TimePicker x:Name="EndHour" Grid.Column="4" Grid.Row="7" Height="25" Width="100" VerticalAlignment="Bottom" DefaultValue="23:00" FontFamily="Malgun Gothic"/>
+        <Button x:Name="AddTravelButton" Content="Dodaj Podróż" Grid.Column="4" HorizontalAlignment="Center"  Grid.Row="9" VerticalAlignment="Center" Width="100" Height="40"  Click="AddTravelButtonClick" FontFamily="Malgun Gothic" ClipToBounds="True"/>
+
+        <Label x:Name="ErrorLabel" Content="" Grid.Row="9" Grid.Column="3" FontFamily="Malgun Gothic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="30"/>
 
     </Grid>
 </UserControl>
