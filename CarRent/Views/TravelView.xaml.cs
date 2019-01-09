@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CarRent.ViewModels;
+using CarRent.Models;
+
 
 namespace CarRent.Views
 {
@@ -20,14 +23,30 @@ namespace CarRent.Views
     /// </summary>
     public partial class TravelView : UserControl
     {
+        private TravelViewModel travelModel;
+        private List<Car> cars;
         public TravelView()
         {
             InitializeComponent();
         }
 
+        public TravelView(DatabaseConnection db, int id)
+            :this()
+        {
+            travelModel = new TravelViewModel(db, id);
+        }
+         
         private void CoachButtonPressed(object sender, RoutedEventArgs e)
         {
-            DataContext = new BusView();
+            //cars = travelModel.GetCoaches();
+            CarList.ItemsSource = travelModel.GetCoaches();// cars;
         }
+
+        private void BusButtonClick(object sender, RoutedEventArgs e)
+        {
+            //cars = travelModel.GetBuses();
+            CarList.ItemsSource = travelModel.GetBuses();//cars;
+        }
+
     }
 }

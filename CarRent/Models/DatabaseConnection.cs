@@ -12,11 +12,17 @@ namespace CarRent.Models
 {
     public class DatabaseConnection
     {
+        //For pascal ssh connection
         private SshClient client;
+        //Forwared port to access database like it was in local
         private ForwardedPortLocal port;
+        //Connection to database
         private NpgsqlConnection conn;
-        private static int i = 8001;
-        public DatabaseConnection(/*string username, string password,ref Label testLabel*/)
+        //private static int i = 8001;
+
+        //assign all connecations with username and password
+        //TODO hide connection parameters to different file
+        public DatabaseConnection()
         {
             client = new SshClient("pascal.fis.agh.edu.pl", "6libirt", "tingliessick");
             port = new ForwardedPortLocal("localhost", 8001, "localhost", 5432);
@@ -25,6 +31,7 @@ namespace CarRent.Models
             conn = new NpgsqlConnection(connectionString);
         }
 
+        //Open connection
         public void OpenDataBase()
         {
             try
@@ -40,6 +47,7 @@ namespace CarRent.Models
             }
         }
 
+        //Close connection
         public void Close()
         {
             if (client.IsConnected)
@@ -51,27 +59,32 @@ namespace CarRent.Models
             }
         }
 
-
+        //FUnction to login
         public int LogIn(string username, string password)
         {
-            string prepareStatement = "SELECT id_klient FROM projekt.klient WHERE email=\'" + username + "\' AND haslo =\'" + password + "\'";
-            using (var cmd = new NpgsqlCommand(prepareStatement, conn))
+            if (client.IsConnected)
             {
-                using (var reader = cmd.ExecuteReader())
+                string prepareStatement = "SELECT id_klient FROM projekt.klient WHERE email=\'" + username + "\' AND haslo =\'" + password + "\'";
+                using (var cmd = new NpgsqlCommand(prepareStatement, conn))
                 {
-                    if (reader.HasRows)
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        // return reader.GetInt32(0);
-                        while (reader.Read())
-                            return reader.GetInt32(0);
-                        return 0;
+                        if (reader.HasRows)
+                        {
+                            // return reader.GetInt32(0);
+                            while (reader.Read())
+                                return reader.GetInt32(0);
+                            return 0;
+                        }
+                        else
+                            return 0;
                     }
-                    else
-                        return 0;
                 }
             }
+            else return -1;
         }
 
+        //Returns name of the user
         public string GetUsername(int id)
         {
             string prepareStatement = "Select imie FROM projekt.klient WHERE id_klient=" + id;
@@ -87,7 +100,7 @@ namespace CarRent.Models
             return "ERROR";
         }
 
-
+        //Launch an PGSQL function to change password
         public string ChangePassword(int id, string oldPass, string fNewPass, string sNewPass)
         {
             string prepareStatement = "Select * FROM zmien_haslo(" + id + ",\'"+ oldPass +"\',\'"+fNewPass+"\',\'"+sNewPass+"\')";
@@ -105,10 +118,28 @@ namespace CarRent.Models
                      while (reader.Read())
                          return reader.GetString(0);
                  }
-              /*  string value = (string)cmd.ExecuteScalar();
-                return value;*/
+              
             }
             return "ERROR";
+        }
+
+        public List<Car> GetAllCars(string type)
+        {
+            List<Car> list = new List<Car>();
+            string prepareStatement = "Select id_pojazd, nazwa, ilosc_miejsc, koszt FROM projekt.pojazd WHERE typ=\'"+type+"\' AND dostepnosc = true";
+            using (NpgsqlCommand cmd = new NpgsqlCommand(prepareStatement, conn))
+            {
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Car(reader.GetString(1), reader.GetInt32(2), reader.GetDecimal(3), reader.GetInt32(0)));
+                        Console.WriteLine("Added");
+                    }
+                }
+            }
+            Console.WriteLine("db " + list.Count);
+            return list;
         }
 
     }
