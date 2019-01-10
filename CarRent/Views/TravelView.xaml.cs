@@ -47,15 +47,33 @@ namespace CarRent.Views
 
         private void AddTravelButtonClick(object sender, RoutedEventArgs e)
         {
-            if(CheckIfAllFieldsFilled())
+            int id = -1;
+            try
             {
-                ErrorLabel.Content = "Tak";
+                if (CarList.SelectedItems[0] is Car car)
+                {
+                    id = car.CarID;
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                ErrorLabel.Content = "Wybierz pojazd!";
+                return;
+            }
+
+
+            if (CheckIfAllFieldsFilled())
+            {
+                travelModel.ArrangeTravel(id, StartCountryText.Text, StartTownText.Text, StartStreetText.Text, StartDate.Text, StartHour.Text, EndCountryText.Text, EndTownText.Text, EndStreetText.Text, EndDate.Text, EndHour.Text);
+
             }
             else
             {
-                ErrorLabel.Content = "Nie";
+                ErrorLabel.Content = "Uzupełnij dane podrózy";
             }
         }
+
+
 
         //TODO figure out how to move this to travelModel
         private bool CheckIfAllFieldsFilled()
@@ -66,5 +84,7 @@ namespace CarRent.Views
                 return false;
             return true;
         }
+
+       
     }
 }

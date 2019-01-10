@@ -21,8 +21,7 @@ namespace CarRent.Models
         private NpgsqlConnection conn;
         //private static int i = 8001;
 
-        //assign all connecations with username and password
-        //TODO hide connection parameters to different file
+        //Add new conncections
         public DatabaseConnection()
         {
             var lines = File.ReadAllLines("connectiondata.dat");
@@ -111,11 +110,9 @@ namespace CarRent.Models
         //Launch an PGSQL function to change password
         public string ChangePassword(int id, string oldPass, string fNewPass, string sNewPass)
         {
-            string prepareStatement = "Select * FROM zmien_haslo(" + id + ",\'"+ oldPass +"\',\'"+fNewPass+"\',\'"+sNewPass+"\')";
             using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.zmien_haslo", conn))
             {
-                
-              
+
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("id", NpgsqlTypes.NpgsqlDbType.Integer, id);
                 cmd.Parameters.AddWithValue("stare", NpgsqlTypes.NpgsqlDbType.Text, oldPass);
@@ -150,5 +147,95 @@ namespace CarRent.Models
             return list;
         }
 
+        public int AddNewPlace(string country, string town, string street)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.dodaj_miejsce", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("kra", NpgsqlTypes.NpgsqlDbType.Text, country);
+                cmd.Parameters.AddWithValue("miejscowos", NpgsqlTypes.NpgsqlDbType.Text, town);
+                cmd.Parameters.AddWithValue("ulic", NpgsqlTypes.NpgsqlDbType.Text, street);
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                        return reader.GetInt32(0);
+                }
+            }
+            return 0;
+        }
+
+        public int AddTravelTime(string StartDate, string StartHour, string EndDate, string EndHour)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.dodaj_okres", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("sdata", NpgsqlTypes.NpgsqlDbType.Date, StartDate);
+                cmd.Parameters.AddWithValue("sgodzina", NpgsqlTypes.NpgsqlDbType.Time, StartHour);
+                cmd.Parameters.AddWithValue("kdata", NpgsqlTypes.NpgsqlDbType.Date, EndDate);
+                cmd.Parameters.AddWithValue("kgodzina", NpgsqlTypes.NpgsqlDbType.Time, EndHour);
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                        return reader.GetInt32(0);
+                }
+            }
+            return 0;
+        }
+
+        public int AddPlaceTravelDependencies(int place1, int place2, int time)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.dodaj_miejsce_okres", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("miejsce1", NpgsqlTypes.NpgsqlDbType.Integer, place1);
+                cmd.Parameters.AddWithValue("miejsce2", NpgsqlTypes.NpgsqlDbType.Integer, place2);
+                cmd.Parameters.AddWithValue("czas", NpgsqlTypes.NpgsqlDbType.Integer, time);
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                        return reader.GetInt32(0);
+                }
+            }
+            return 0;
+        }
+
+        public decimal CalculateCost(int id, string startDate, int hourStart, string endDate, int hourEnd)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.licz_koszt", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("idauta", NpgsqlTypes.NpgsqlDbType.Integer, id);
+                cmd.Parameters.AddWithValue("sdata", NpgsqlTypes.NpgsqlDbType.Date, startDate);
+                cmd.Parameters.AddWithValue("sgodzina", NpgsqlTypes.NpgsqlDbType.Integer, hourStart);
+                cmd.Parameters.AddWithValue("kdata", NpgsqlTypes.NpgsqlDbType.Date, endDate);
+                cmd.Parameters.AddWithValue("kgodzina", NpgsqlTypes.NpgsqlDbType.Integer, hourEnd);
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                        return reader.GetDecimal(0);
+                }
+            }
+            return -1;
+        }
+
+        public int AddOrder(int idUser, int idCar, int idPlace, decimal cost)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.dodaj_zamowienie", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("idklient", NpgsqlTypes.NpgsqlDbType.Integer, idUser);
+                cmd.Parameters.AddWithValue("idpojazd", NpgsqlTypes.NpgsqlDbType.Integer, idCar);
+                cmd.Parameters.AddWithValue("idmiejsce  ", NpgsqlTypes.NpgsqlDbType.Integer, idPlace);
+                cmd.Parameters.AddWithValue("cena", NpgsqlTypes.NpgsqlDbType.Numeric, cost);
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                        return reader.GetInt32(0);
+                }
+            }
+            return -1;
+        }
     }
+
+  
 }
