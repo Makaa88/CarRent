@@ -64,8 +64,15 @@ namespace CarRent.Views
 
             if (CheckIfAllFieldsFilled())
             {
-                travelModel.ArrangeTravel(id, StartCountryText.Text, StartTownText.Text, StartStreetText.Text, StartDate.Text, StartHour.Text, EndCountryText.Text, EndTownText.Text, EndStreetText.Text, EndDate.Text, EndHour.Text);
-
+                int res = travelModel.ArrangeTravel(id, StartCountryText.Text, StartTownText.Text, StartStreetText.Text, StartDate.Text, StartHour.Text, EndCountryText.Text, EndTownText.Text, EndStreetText.Text, EndDate.Text, EndHour.Text);
+                if(res == -1)
+                {
+                    ErrorLabel.Content = "Coś się nie udało!";
+                }
+                else
+                {
+                    ErrorLabel.Content = "Dodano zamównienie";
+                }
             }
             else
             {

@@ -33,13 +33,13 @@ namespace CarRent.Models
 
             client = new SshClient("pascal.fis.agh.edu.pl", user, password);
             port = new ForwardedPortLocal("localhost", 8001, "localhost", 5432);
-            string connectionString = String.Format("Server={0};Port={1};User Id={2};Password={3};Database={4}; CommandTimeout=1;",
+            string connectionString = String.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};",
                   "localhost", 8001, dbuser, dbpassword, dbname);
             conn = new NpgsqlConnection(connectionString);
         }
 
         //Open connection
-        public void OpenDataBase()
+        public int OpenDataBase()
         {
             try
             {
@@ -51,7 +51,10 @@ namespace CarRent.Models
             catch(Exception ex)
             {
                 Console.WriteLine("Błąd podczas otwarcia " + ex);
+                return -1;
             }
+
+            return 1;
         }
 
         //Close connection
@@ -69,26 +72,35 @@ namespace CarRent.Models
         //FUnction to login
         public int LogIn(string username, string password)
         {
-            if (client.IsConnected)
+            try
             {
-                string prepareStatement = "SELECT id_klient FROM projekt.klient WHERE email=\'" + username + "\' AND haslo =\'" + password + "\'";
-                using (var cmd = new NpgsqlCommand(prepareStatement, conn))
+                if (client.IsConnected)
                 {
-                    using (var reader = cmd.ExecuteReader())
+                    string prepareStatement = "SELECT id_klient FROM projekt.klient WHERE email=\'" + username + "\' AND haslo =\'" + password + "\'";
+                    using (var cmd = new NpgsqlCommand(prepareStatement, conn))
                     {
-                        if (reader.HasRows)
+                        using (var reader = cmd.ExecuteReader())
                         {
-                            // return reader.GetInt32(0);
-                            while (reader.Read())
-                                return reader.GetInt32(0);
-                            return 0;
+                            if (reader.HasRows)
+                            {
+                                // return reader.GetInt32(0);
+                                while (reader.Read())
+                                    return reader.GetInt32(0);
+                                return 0;
+                            }
+                            else
+                                return 0;
                         }
-                        else
-                            return 0;
                     }
                 }
             }
-            else return -1;
+            catch(Exception)
+            {
+                Console.WriteLine("Blad poczas logowania");
+                return -1;
+            }
+
+            return -1;
         }
 
         //Returns name of the user
@@ -169,10 +181,10 @@ namespace CarRent.Models
             using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.dodaj_okres", conn))
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("sdata", NpgsqlTypes.NpgsqlDbType.Date, StartDate);
-                cmd.Parameters.AddWithValue("sgodzina", NpgsqlTypes.NpgsqlDbType.Time, StartHour);
-                cmd.Parameters.AddWithValue("kdata", NpgsqlTypes.NpgsqlDbType.Date, EndDate);
-                cmd.Parameters.AddWithValue("kgodzina", NpgsqlTypes.NpgsqlDbType.Time, EndHour);
+                cmd.Parameters.AddWithValue("sdata", NpgsqlTypes.NpgsqlDbType.Text, StartDate);
+                cmd.Parameters.AddWithValue("sgodzina", NpgsqlTypes.NpgsqlDbType.Text, StartHour);
+                cmd.Parameters.AddWithValue("kdata", NpgsqlTypes.NpgsqlDbType.Text, EndDate);
+                cmd.Parameters.AddWithValue("kgodzina", NpgsqlTypes.NpgsqlDbType.Text, EndHour);
                 using (NpgsqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -205,9 +217,9 @@ namespace CarRent.Models
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("idauta", NpgsqlTypes.NpgsqlDbType.Integer, id);
-                cmd.Parameters.AddWithValue("sdata", NpgsqlTypes.NpgsqlDbType.Date, startDate);
+                cmd.Parameters.AddWithValue("sdata", NpgsqlTypes.NpgsqlDbType.Text, startDate);
                 cmd.Parameters.AddWithValue("sgodzina", NpgsqlTypes.NpgsqlDbType.Integer, hourStart);
-                cmd.Parameters.AddWithValue("kdata", NpgsqlTypes.NpgsqlDbType.Date, endDate);
+                cmd.Parameters.AddWithValue("kdata", NpgsqlTypes.NpgsqlDbType.Text, endDate);
                 cmd.Parameters.AddWithValue("kgodzina", NpgsqlTypes.NpgsqlDbType.Integer, hourEnd);
                 using (NpgsqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -220,18 +232,30 @@ namespace CarRent.Models
 
         public int AddOrder(int idUser, int idCar, int idPlace, decimal cost)
         {
-            using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.dodaj_zamowienie", conn))
+            try
             {
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("idklient", NpgsqlTypes.NpgsqlDbType.Integer, idUser);
-                cmd.Parameters.AddWithValue("idpojazd", NpgsqlTypes.NpgsqlDbType.Integer, idCar);
-                cmd.Parameters.AddWithValue("idmiejsce  ", NpgsqlTypes.NpgsqlDbType.Integer, idPlace);
-                cmd.Parameters.AddWithValue("cena", NpgsqlTypes.NpgsqlDbType.Numeric, cost);
-                using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.dodaj_zamowienie", conn))
                 {
-                    while (reader.Read())
-                        return reader.GetInt32(0);
+                   /* string[] cena = cost.ToString().Split(',');
+                    Console.WriteLine(cost + " " +cena[0] + " " + cena[1]);*/
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("idklient", NpgsqlTypes.NpgsqlDbType.Integer, idUser);
+                    cmd.Parameters.AddWithValue("idpojazd", NpgsqlTypes.NpgsqlDbType.Integer, idCar);
+                    cmd.Parameters.AddWithValue("idmiejsce", NpgsqlTypes.NpgsqlDbType.Integer, idPlace);
+                    cmd.Parameters.AddWithValue("cena", NpgsqlTypes.NpgsqlDbType.Numeric, cost);
+                    //cmd.Parameters.AddWithValue("wartosc", NpgsqlTypes.NpgsqlDbType.Integer, int.Parse(cena[0]));
+                    // cmd.Parameters.AddWithValue("reszta", NpgsqlTypes.NpgsqlDbType.Integer, int.Parse(cena[1]));
+                    using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                            return reader.GetInt32(0);
+                    }
                 }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("NIE WIDE FUNKCJI!!!");
+                Console.WriteLine(e.ToString());
             }
             return -1;
         }

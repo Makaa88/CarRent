@@ -30,7 +30,11 @@ namespace CarRent
         public MainWindow()
         {
             InitializeComponent();
-            db.OpenDataBase();
+            int result = db.OpenDataBase();
+            if(result == -1)
+            {
+                ErrorLabel.Content = "Nie udało się połączyć!";
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
