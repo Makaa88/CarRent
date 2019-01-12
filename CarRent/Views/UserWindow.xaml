@@ -18,6 +18,9 @@
         <DataTemplate x:Name="PasswordChangeView" DataType="{x:Type local:PasswordChangeView}">
             <local:PasswordChangeView DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate x:Name="OrdersChangeView" DataType="{x:Type local:OrdersView}">
+            <local:OrdersView DataContext="{Binding}"/>
+        </DataTemplate>
     </Window.Resources>
     <Grid Background="LightGray">
         <Grid.ColumnDefinitions>
@@ -54,7 +57,7 @@
             <Button x:Name="TravelButton" Background="DodgerBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Top" Margin="0" Height="58" Width="205" Click="TravelButtonClick">
                 <StackPanel Height="40" Width="157" Orientation="Horizontal">
                     <iconPack:PackIconMaterial Kind="Car" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <TextBlock Text="Podróż" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <TextBlock Text="Nowa podróż" VerticalAlignment="Center" Margin="15,0,0,0"/>
                 </StackPanel>
             </Button>
         </DockPanel>
@@ -68,6 +71,15 @@
             </Button>
         </DockPanel>
 
+        <DockPanel Grid.Row="2" Grid.Column="0" >
+            <Button x:Name="OrdersButton" Background="DodgerBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="58" Width="205" HorizontalAlignment="Center" Click="OrdersButtonClick">
+                <StackPanel Height="40" Width="157" Orientation="Horizontal">
+                    <iconPack:PackIconMaterial Kind="Information" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <TextBlock Text="Zamówienia" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                </StackPanel>
+            </Button>
+        </DockPanel>
+
         <DockPanel Grid.Row="8" Grid.Column="0" >
             <Button x:Name="ChangePassword" Background="DodgerBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="58" Width="205" HorizontalAlignment="Center" Click="ChangePasswordButtonClick">
                 <StackPanel Height="40" Width="157" Orientation="Horizontal">
@@ -76,6 +88,8 @@
                 </StackPanel>
             </Button>
         </DockPanel>
+        
+        
 
         <DockPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2">
             <Label x:Name="HelloLabel" Width="300" Height="50" FontFamily="Malgun Gothic" FontSize="25" FontWeight="Heavy" Foreground="DodgerBlue" Background="LightGray"  HorizontalAlignment="Center" VerticalAlignment="Center"/>

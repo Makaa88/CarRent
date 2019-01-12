@@ -64,5 +64,10 @@ namespace CarRent.Views
         {
             DataContext = new PasswordChangeView(db,model.GetID());
         }
+
+        private void OrdersButtonClick(object sender, RoutedEventArgs e)
+        {
+            DataContext = new OrdersView(db, model.GetID());
+        }
     }
 }

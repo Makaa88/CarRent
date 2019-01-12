@@ -87,7 +87,7 @@
 
         <wpfTool:TimePicker x:Name="StartHour" Grid.Column="4" Grid.Row="6" Height="25" Width="100" VerticalAlignment="Bottom" DefaultValue="00:00" FontFamily="Malgun Gothic"/>
         <wpfTool:TimePicker x:Name="EndHour" Grid.Column="4" Grid.Row="7" Height="25" Width="100" VerticalAlignment="Bottom" DefaultValue="23:00" FontFamily="Malgun Gothic"/>
-        <Button x:Name="AddTravelButton" Content="Dodaj Podróż" Grid.Column="4" HorizontalAlignment="Center"  Grid.Row="9" VerticalAlignment="Center" Width="100" Height="40"  Click="AddTravelButtonClick" FontFamily="Malgun Gothic" ClipToBounds="True"/>
+        <Button x:Name="AddTravelButton" Content="Zamów podróż" Grid.Column="4" HorizontalAlignment="Center"  Grid.Row="9" VerticalAlignment="Center" Width="100" Height="40"  Click="AddTravelButtonClick" FontFamily="Malgun Gothic" ClipToBounds="True"/>
 
         <Label x:Name="ErrorLabel" Grid.Row="9" Grid.Column="3" FontFamily="Malgun Gothic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="145" Height="30"/>
 

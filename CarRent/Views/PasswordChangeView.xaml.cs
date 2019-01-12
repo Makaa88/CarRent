@@ -39,6 +39,9 @@ namespace CarRent.Views
         {
             ContentLabel.Content = "";
             ContentLabel.Content = passwordModel.ChangePassword(OldPasswordBox.Password, FirstNewPasswordBox.Password, SecondNewPasswordBox.Password);
+            OldPasswordBox.Password = "";
+            FirstNewPasswordBox.Password = "";
+            SecondNewPasswordBox.Password = "";
             Console.WriteLine("kdsjklfnlksad");
         }
     }

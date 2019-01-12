@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using Renci.SshNet;
 using Npgsql;
-using System.Windows.Controls;
-using System.IO;
+
 
 namespace CarRent.Models
 {
@@ -19,6 +15,7 @@ namespace CarRent.Models
         private ForwardedPortLocal port;
         //Connection to database
         private NpgsqlConnection conn;
+
         //private static int i = 8001;
 
         //Add new conncections
@@ -124,7 +121,6 @@ namespace CarRent.Models
         {
             using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.zmien_haslo", conn))
             {
-
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("id", NpgsqlTypes.NpgsqlDbType.Integer, id);
                 cmd.Parameters.AddWithValue("stare", NpgsqlTypes.NpgsqlDbType.Text, oldPass);
@@ -258,6 +254,44 @@ namespace CarRent.Models
                 Console.WriteLine(e.ToString());
             }
             return -1;
+        }
+
+        public List<OrderDetails> GetOrderDetails(int id, int type)
+        {
+            List<OrderDetails> list = new List<OrderDetails>();
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
+            string prepareStatement = "";
+            if(type == 1)
+                prepareStatement += "Select * FROM projekt.dane_zamowienia WHERE id_klient="+id+" AND data_koniec <=\'"+date + "\'";
+            else if (type == 3)
+                prepareStatement += "Select * FROM projekt.dane_zamowienia WHERE id_klient=" + id + " AND data_koniec >=\'" + date + "\'";
+            try
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand(prepareStatement, conn))
+                {
+             
+                    using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int idorder = reader.GetInt32(1);
+                            string vehicle = reader.GetString(2);
+                            string stime = reader.GetDate(3).ToString() + " " + reader.GetTimeSpan(4);
+                            string etime = reader.GetDate(5).ToString() + " " + reader.GetTimeSpan(6);
+                            decimal cost = reader.GetDecimal(7);
+                            string place = reader.GetString(8) + " - " + reader.GetString(9);
+                            list.Add(new OrderDetails(idorder, vehicle, stime, etime, place, cost));
+                            Console.WriteLine("orderadded");
+                        }                        
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("NIE WIDE FUNKCJI!!!");
+                Console.WriteLine(e.ToString());
+            }
+            return list;
         }
     }
 
