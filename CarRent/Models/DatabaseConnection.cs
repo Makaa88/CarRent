@@ -293,6 +293,35 @@ namespace CarRent.Models
             }
             return list;
         }
+
+        public string AddNewUser(string name, string surname, string address, string phone, string mail, string pass1, string pass2)
+        {
+            try
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand("projekt.dodaj_klienta", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("im", NpgsqlTypes.NpgsqlDbType.Varchar, name);
+                    cmd.Parameters.AddWithValue("naz", NpgsqlTypes.NpgsqlDbType.Varchar, surname);
+                    cmd.Parameters.AddWithValue("adr", NpgsqlTypes.NpgsqlDbType.Varchar,address );
+                    cmd.Parameters.AddWithValue("tel", NpgsqlTypes.NpgsqlDbType.Bigint, int.Parse(phone));
+                    cmd.Parameters.AddWithValue("mail", NpgsqlTypes.NpgsqlDbType.Varchar, mail);
+                    cmd.Parameters.AddWithValue("has1", NpgsqlTypes.NpgsqlDbType.Varchar, pass1);
+                    cmd.Parameters.AddWithValue("has2", NpgsqlTypes.NpgsqlDbType.Varchar, pass2);
+                    using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                            return reader.GetString(0);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return "Wystąpił błąd";
+            }
+            return "Nieoczekiwany return";
+        }
     }
 
   

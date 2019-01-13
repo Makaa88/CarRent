@@ -5,10 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Closing="WindowClosing"
         xmlns:local="clr-namespace:CarRent"
+        xmlns:iconPack="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         xmlns:viewmodels="clr-namespace:CarRent.ViewModels"
         xmlns:views="clr-namespace:CarRent.Views"
         Title="MainWindow" Height="600" Width="1024" Background="MidnightBlue">
+
+    <Window.Resources>
+        <DataTemplate x:Name="LogInView" DataType="{x:Type views:LogInView}">
+            <views:LogInView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="RegisterUserView" DataType="{x:Type views:RegisterUserView}">
+            <views:RegisterUserView DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -25,7 +35,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="1" Grid.Column="1">
+       <!-- <DockPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Height="35" TextWrapping="Wrap" Text="E-mail" VerticalAlignment="Center" Margin="0,42,0,36.6" Foreground="White" HorizontalAlignment="Center" FontSize="24" FontFamily="Malgun Gothic"/>
         </DockPanel>
 
@@ -47,7 +57,26 @@
 
         <DockPanel Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label x:Name="ErrorLabel" Height="35" Width="150" FontFamily="Malgun Gothic" FontSize="18" Background="MidnightBlue"/>
+        </DockPanel> -->
+
+        <DockPanel Grid.Row="1" Grid.Column="0" Background="MidnightBlue" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Button x:Name="LogInFormButton" Background="MidnightBlue" FontFamily="Malgun Gothic" FontSize="20" VerticalAlignment="Top" Margin="0" Height="70" Width="205"  Foreground="White" BorderThickness="0" Click="LogInFormButtonClick">
+                <StackPanel Height="40" Width="157" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                    <iconPack:PackIconMaterial Kind="Login" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <TextBlock Text="Logowanie" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                </StackPanel>
+            </Button>
         </DockPanel>
 
+        <DockPanel Grid.Row="2" Grid.Column="0" Background="MidnightBlue" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <Button x:Name="AddNewUserButton" Background="MidnightBlue" FontFamily="Malgun Gothic" FontSize="20" VerticalAlignment="Top" Margin="0" Height="70" Width="205"  Foreground="White" BorderThickness="0" Click="AddNewUserButtonClick">
+                <StackPanel Height="40" Width="157" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                    <iconPack:PackIconMaterial Kind="Information" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <TextBlock Text="Rejestracja" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                </StackPanel>
+            </Button>
+        </DockPanel>
+
+        <ContentControl Grid.Row="0" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="3" Content="{Binding}"/>
     </Grid>
 </Window>

@@ -42,7 +42,6 @@ namespace CarRent.Views
             OldPasswordBox.Password = "";
             FirstNewPasswordBox.Password = "";
             SecondNewPasswordBox.Password = "";
-            Console.WriteLine("kdsjklfnlksad");
         }
     }
 }

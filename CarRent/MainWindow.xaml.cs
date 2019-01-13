@@ -26,18 +26,18 @@ namespace CarRent
     {
 
         private DatabaseConnection db = new DatabaseConnection();
-        private int userID;
         public MainWindow()
         {
             InitializeComponent();
             int result = db.OpenDataBase();
-            if(result == -1)
+            DataContext = new LogInView(result, db,this);
+            /*if(result == -1)
             {
                 ErrorLabel.Content = "Nie udało się połączyć!";
-            }
+            }*/
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+       /* private void Button_Click(object sender, RoutedEventArgs e)
         {
             userID = db.LogIn(LoginBox.Text, PasswordBox.Password);
              if (userID == 0)
@@ -59,12 +59,22 @@ namespace CarRent
                 PasswordBox.Clear();
                 ErrorLabel.Content = "";
              }
-        }
+        }*/
 
         void WindowClosing(object sender, CancelEventArgs e)
         {
             Console.WriteLine("ZAKYKANUE");
             db.Close();
+        }
+
+        private void AddNewUserButtonClick(object sender, RoutedEventArgs e)
+        {
+            DataContext = new RegisterUserView(db);
+        }
+
+        private void LogInFormButtonClick(object sender, RoutedEventArgs e)
+        {
+            DataContext = new LogInView(1, db, this);
         }
     }
 }
