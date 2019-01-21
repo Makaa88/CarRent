@@ -31,11 +31,11 @@
 
         <Button x:Name="OrdersDoneButton"  Grid.Row="0" Grid.Column="1" FontFamily="Malgun Gothic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="145" Height="30" Content="Zrealizowane" Click="OrdersDoneButtonClick"/>
         <Button x:Name="OrderInRealizationButton"  Grid.Row="0" Grid.Column="3" FontFamily="Malgun Gothic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="145" Height="30" Content="W realizacji" Click="OrderInRealizationButtonClick"/>
-        <Button x:Name="CancelOrderButton"  Grid.Row="7" Grid.Column="4" FontFamily="Malgun Gothic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="145" Height="30" Content="Usun zamówienie" IsEnabled="False"/>
+        <Button x:Name="CancelOrderButton"  Grid.Row="7" Grid.Column="4" FontFamily="Malgun Gothic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="145" Height="30" Content="Usun zamówienie" IsEnabled="False" Click="CancelOrderButtonClick"/>
 
 
         <DockPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="5">
-            <ListView Name="OrderList" MaxWidth="819">
+            <ListView Name="OrderList" MaxWidth="819" SelectionChanged="OrderListSelectionItemChanged">
                 <ListView.View>
                     <GridView x:Name="First">
                         <GridViewColumn DisplayMemberBinding="{Binding Path=OrderID}" Header="Numer zamówienia" Width="134"/>

@@ -45,7 +45,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" Grid.RowSpan="10" Grid.Column="0" Background="DodgerBlue" Margin="0">
-            <Button x:Name="MainPageButton" Background="DodgerBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Top" Margin="0" Height="58" Width="205" Click="MainPageButtonClick">
+            <Button x:Name="MainPageButton" Background="DodgerBlue" FontFamily="Malgun Gothic" BorderThickness="0" FontSize="16" VerticalAlignment="Top" Margin="0" Height="58" Width="205" Click="MainPageButtonClick">
                 <StackPanel Height="40" Width="157" Orientation="Horizontal">
                     <iconPack:PackIconMaterial Kind="Home" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     <TextBlock Text="Strona Głowna" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -54,7 +54,7 @@
         </DockPanel>
 
         <DockPanel Grid.Row="1" Grid.Column="0" Background="DodgerBlue" Margin="0">
-            <Button x:Name="TravelButton" Background="DodgerBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Top" Margin="0" Height="58" Width="205" Click="TravelButtonClick">
+            <Button x:Name="TravelButton" Background="DodgerBlue" BorderThickness="0" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Top" Margin="0" Height="58" Width="205" Click="TravelButtonClick">
                 <StackPanel Height="40" Width="157" Orientation="Horizontal">
                     <iconPack:PackIconMaterial Kind="Car" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     <TextBlock Text="Nowa podróż" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -63,7 +63,7 @@
         </DockPanel>
 
         <DockPanel Grid.Row="9" Grid.Column="0" >
-            <Button x:Name="LogOutButton" Background="DodgerBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="58" Width="205" HorizontalAlignment="Center" Click="LogOutClick">
+            <Button x:Name="LogOutButton" Background="DodgerBlue" BorderThickness="0" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="58" Width="205" HorizontalAlignment="Center" Click="LogOutClick">
                 <StackPanel Height="40" Width="157" Orientation="Horizontal">
                     <iconPack:PackIconMaterial Kind="Logout" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     <TextBlock Text="Wyloguj" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -72,7 +72,7 @@
         </DockPanel>
 
         <DockPanel Grid.Row="2" Grid.Column="0" >
-            <Button x:Name="OrdersButton" Background="DodgerBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="58" Width="205" HorizontalAlignment="Center" Click="OrdersButtonClick">
+            <Button x:Name="OrdersButton" Background="DodgerBlue" BorderThickness="0" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="58" Width="205" HorizontalAlignment="Center" Click="OrdersButtonClick">
                 <StackPanel Height="40" Width="157" Orientation="Horizontal">
                     <iconPack:PackIconMaterial Kind="Information" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     <TextBlock Text="Zamówienia" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -81,7 +81,7 @@
         </DockPanel>
 
         <DockPanel Grid.Row="8" Grid.Column="0" >
-            <Button x:Name="ChangePassword" Background="DodgerBlue" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="58" Width="205" HorizontalAlignment="Center" Click="ChangePasswordButtonClick">
+            <Button x:Name="ChangePassword" Background="DodgerBlue" BorderThickness="0" FontFamily="Malgun Gothic" FontSize="16" VerticalAlignment="Bottom" Margin="0" Height="58" Width="205" HorizontalAlignment="Center" Click="ChangePasswordButtonClick">
                 <StackPanel Height="40" Width="157" Orientation="Horizontal">
                     <iconPack:PackIconMaterial Kind="KeyChange" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     <TextBlock Text="Zmień hasło" VerticalAlignment="Center" Margin="15,0,0,0"/>

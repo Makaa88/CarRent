@@ -20,5 +20,10 @@ namespace CarRent.ViewModels
         }
 
         public List<OrderDetails> GetOrders(int type) => db.GetOrderDetails(userID,type);
+        public List<OrderDetails> DeleteOrder(int idOrder)
+        {
+            db.DeleteOrder(idOrder);
+            return GetOrders(3);
+        }
     }
 }

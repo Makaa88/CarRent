@@ -67,10 +67,35 @@ namespace CarRent.Views
                 int res = travelModel.ArrangeTravel(id, StartCountryText.Text, StartTownText.Text, StartStreetText.Text, StartDate.Text, StartHour.Text, EndCountryText.Text, EndTownText.Text, EndStreetText.Text, EndDate.Text, EndHour.Text);
                 if(res == -1)
                 {
-                    ErrorLabel.Content = "Coś się nie udało!";
+                    ErrorLabel.Content = "Nie udało się dodać zamówienia!";
+                }
+                else if(res == -2)
+                {
+                    ErrorLabel.Content = "Podaj prawidłową date";
+                }
+                else if(res == -3)
+                {
+                    ErrorLabel.Content = "Kod błedu -3";
+                }
+                else if (res == -4)
+                {
+                    ErrorLabel.Content = "Kod błedu -4";
+                }
+                else if (res == -5)
+                {
+                    ErrorLabel.Content = "Kod błedu -5";
+                }
+                else if(res == -6)
+                {
+                    ErrorLabel.Content = "Podrózne można zamiawiać najwyżej\njeden dzień przed wyjazdem";
                 }
                 else
                 {
+                    StartTownText.Text = EndTownText.Text = "";
+                    StartStreetText.Text = EndStreetText.Text = "";
+                    StartDate.Text = EndDate.Text = "";
+                    StartHour.Text = EndHour.Text = "";
+                    CarList.ItemsSource = travelModel.GetCoaches();
                     ErrorLabel.Content = "Dodano zamównienie";
                 }
             }

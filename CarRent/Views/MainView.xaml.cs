@@ -32,6 +32,8 @@ namespace CarRent.Views
             :this()
         {
             HelloLabel.Content = " Witaj " + model.GetName() + "!";
+            InfoOrderLabel.Content = "Twoja najbliższa podróż";
+            UpcomingOrderLabel.Content = model.GetUpcomingOrder();
         }
 
 

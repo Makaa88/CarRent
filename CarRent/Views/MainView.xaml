@@ -34,6 +34,11 @@
             <Label x:Name="HelloLabel" Content="" Width="300" Height="50" FontFamily="Malgun Gothic" FontSize="25" FontWeight="Heavy" Foreground="Black" Background="LightGray"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </DockPanel>
 
-        
+        <Label Grid.Row="6" Grid.ColumnSpan="2" x:Name="InfoOrderLabel"  Content="" FontFamily="Malgun Gothic" FontSize="18" Foreground="Black"/>
+        <DockPanel Grid.Row="7" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="4">
+            <Label x:Name="UpcomingOrderLabel"   FontFamily="Malgun Gothic" FontSize="18" Foreground="Black"/>
+        </DockPanel>
+
+
     </Grid>
 </UserControl>

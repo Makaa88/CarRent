@@ -35,9 +35,16 @@ namespace CarRent.Views
 
         private void RegisterButtonClick(object sender, RoutedEventArgs e)
         {
-            if(AllLabelsFilled())
+            int number;
+            bool succes = int.TryParse(PhoneLabel.Text, out number);
+            if(AllLabelsFilled() && PhoneLabel.Text.Length == 9 && succes)
             {
+
                 InfoLabel.Content = db.AddNewUser(NameLabel.Text, SurnameLabel.Text, Addressabel.Text, PhoneLabel.Text, MailLabel.Text, Password1Label.Password, Password2Label.Password);
+            }
+            else if(PhoneLabel.Text.Length != 9 || !succes)
+            {
+                InfoLabel.Content = "Podaj właściwy numer telefonu";
             }
             else
             {

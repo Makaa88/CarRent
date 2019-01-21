@@ -23,6 +23,7 @@ namespace CarRent.Views
     public partial class OrdersView : UserControl
     {
         private OrderViewModel orderViewModel;
+        private bool isCancelButtonAllowedToClick = false;
         public OrdersView()
         {
             InitializeComponent();
@@ -38,11 +39,36 @@ namespace CarRent.Views
         private void OrdersDoneButtonClick(object sender, RoutedEventArgs e)
         {
             OrderList.ItemsSource = orderViewModel.GetOrders(1);
+            CancelOrderButton.IsEnabled = false;
+            isCancelButtonAllowedToClick = false;
         }
 
         private void OrderInRealizationButtonClick(object sender, RoutedEventArgs e)
         {
             OrderList.ItemsSource = orderViewModel.GetOrders(3);
+            CancelOrderButton.IsEnabled = false;
+            isCancelButtonAllowedToClick = true;
+        }
+
+        private void OrderListSelectionItemChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(isCancelButtonAllowedToClick) 
+             CancelOrderButton.IsEnabled = true;
+        }
+
+        private void CancelOrderButtonClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (OrderList.SelectedItems[0] is OrderDetails order)
+                {
+                    OrderList.ItemsSource = orderViewModel.DeleteOrder(order.OrderID);
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return;
+            }
         }
     }
 }

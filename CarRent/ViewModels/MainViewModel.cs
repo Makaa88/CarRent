@@ -32,5 +32,10 @@ namespace CarRent.ViewModels
         {
             return user.ID;
         }
+
+        public string GetUpcomingOrder()
+        {
+            return db.GetUpcomingOrder(user.ID);
+        }
     }
 }

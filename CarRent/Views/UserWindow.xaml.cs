@@ -35,6 +35,7 @@ namespace CarRent.Views
             this.db = db;
             this.mainWindow = window;
             model = new MainViewModel(ref this.db, id);
+            db.Synchronize();
             DataContext = new MainView(model);
             
         }
