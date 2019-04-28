@@ -28,7 +28,7 @@ namespace CarRent.Models
             string dbname = lines[3];
             string dbuser = lines[4];*/
 
-            client = new SshClient("pascal.fis.agh.edu.pl", "6libirt", "tingliessick");
+            client = new SshClient("pascal.fis.agh.edu.pl", "6libirt", "secretPass");
             port = new ForwardedPortLocal("localhost", 8001, "localhost", 5432); 
             string connectionString = String.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};",
                   "localhost", 8001, "u6libirt", "6libirt", "u6libirt");
